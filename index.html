@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michele Garagnani – Neuroeconomics & Behavioral Economics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1a1a;
+      --muted:     #555;
+      --faint:     #888;
+      --rule:      #d8d0c4;
+      --paper:     #faf8f4;
+      --cream:     #f2ede5;
+      --accent:    #2d5a8e;
+      --accent-lt: #e8eef6;
+      --serif:     'EB Garamond', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ──────────────────────────────────────── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section { padding: 4rem 0; }
+    section + section { border-top: 1px solid var(--rule); }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 2rem;
+    }
+
+    /* ── HERO ────────────────────────────────────────── */
+    #hero {
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: start;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-text .title-line {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      margin-bottom: 1.8rem;
+    }
+    .hero-text p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.5rem 1.1rem;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      color: var(--ink);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .btn:hover { background: var(--cream); border-color: var(--ink); }
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1f3f63; border-color: #1f3f63; color: #fff; }
+
+    .photo-slot {
+      width: 160px;
+      height: 200px;
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .photo-slot span {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      color: var(--faint);
+      text-align: center;
+      padding: 1rem;
+      letter-spacing: 0.05em;
+    }
+    /* If you add a real photo, replace the .photo-slot div with:
+       <img src="photo.jpg" alt="Michele Garagnani" class="photo" /> */
+    .photo {
+      width: 160px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 2px;
+      border: 1px solid var(--rule);
+      flex-shrink: 0;
+    }
+
+    /* ── RESEARCH INTERESTS ──────────────────────────── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--accent);
+      background: var(--accent-lt);
+      border: 1px solid #c5d5e8;
+      border-radius: 2px;
+      padding: 0.25rem 0.75rem;
+    }
+
+    /* ── PUBLICATIONS ────────────────────────────────── */
+    .pub-list { list-style: none; }
+    .pub-list li {
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+    }
+    .pub-list li:last-child { border-bottom: none; }
+    .pub-num {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--faint);
+      text-align: right;
+      padding-top: 0.15rem;
+    }
+    .pub-body { }
+    .pub-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .pub-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .pub-title a:hover { color: var(--accent); }
+    .pub-meta {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .pub-badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #8a6200;
+      background: #fff8e6;
+      border: 1px solid #e8d090;
+      border-radius: 2px;
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .pub-solo { color: var(--accent); font-weight: 500; }
+
+    /* section heading for in-progress */
+    .subsection-head {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 2.5rem 0 1rem;
+    }
+
+    /* ── CV TABLE ────────────────────────────────────── */
+    .cv-block { margin-bottom: 2.5rem; }
+    .cv-block h3 {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.8rem;
+    }
+    .cv-entry {
+      display: grid;
+      grid-template-columns: 6rem 1fr;
+      gap: 0.5rem 1rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.95rem;
+    }
+    .cv-entry:last-child { border-bottom: none; }
+    .cv-year {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      color: var(--faint);
+      padding-top: 0.1rem;
+    }
+    .cv-detail { color: var(--ink); }
+    .cv-detail em { font-style: italic; color: var(--muted); }
+
+    /* ── CONTACT ─────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .contact-item {
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .contact-item strong {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.3rem;
+    }
+    .contact-item a { color: var(--accent); text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--faint);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      #hero { grid-template-columns: 1fr; }
+      .photo-slot, .photo { width: 120px; height: 150px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .cv-entry { grid-template-columns: 4.5rem 1fr; }
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-name" href="#hero">Michele Garagnani</a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-text">
+        <h1>Michele Garagnani</h1>
+        <p class="title-line">Senior Lecturer · University of Melbourne &nbsp;|&nbsp; Centre for Brain, Mind &amp; Markets</p>
+        <p>
+          I am a neuroeconomist and behavioural economist interested in how people
+          make decisions, why they make mistakes, and how to measure their true
+          preferences. My work combines experimental methods, EEG/fMRI, and
+          response-time analysis to study the cognitive and neural underpinnings
+          of choice.
+        </p>
+        <div class="hero-links">
+          <a class="btn btn-primary" href="CV_MicheleGaragnani.pdf" target="_blank">Download CV</a>
+          <a class="btn" href="https://scholar.google.com" target="_blank">Google Scholar</a>
+          <a class="btn" href="https://orcid.org/0000-0002-2510-7109" target="_blank">ORCID</a>
+        </div>
+      </div>
+      <!-- Replace the div below with <img src="photo.jpg" alt="Michele Garagnani" class="photo" /> -->
+      <div class="photo-slot">
+        <span>Add your photo here</span>
+      </div>
+    </section>
+
+    <!-- RESEARCH INTERESTS -->
+    <section id="research">
+      <h2>Research Interests</h2>
+      <div class="tags">
+        <span class="tag">Neuroeconomics</span>
+        <span class="tag">Behavioral Economics</span>
+        <span class="tag">Judgment &amp; Decision Making</span>
+        <span class="tag">Stochastic Choice</span>
+        <span class="tag">Response Times</span>
+        <span class="tag">EEG / fMRI</span>
+        <span class="tag">Strength of Preference</span>
+        <span class="tag">Bayesian Updating</span>
+        <span class="tag">Pain Measurement</span>
+      </div>
+      <p style="margin-top:1.8rem; color:var(--muted); font-size:1rem; max-width:660px;">
+        A central thread of my research is developing and validating methods to predict
+        people's choices using non-choice data — particularly response times and neural
+        signals. This has led to contributions across decision theory, experimental
+        economics, and neuroeconomics, with applications ranging from risky choice to
+        cooperation, belief updating, and the measurement of subjective feelings.
+      </p>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <ol class="pub-list" reversed start="18">
+
+        <li>
+          <span class="pub-num">18</span>
+          <div class="pub-body">
+            <div class="pub-title">Errors Fast and Slow</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Forthcoming, Cognitive Psychology</em></div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">17</span>
+          <div class="pub-body">
+            <div class="pub-title">Why Is Choice Stochastic? Deliberate Randomization vs. Strength of Preference</div>
+            <div class="pub-meta">C. Alós-Ferrer, J. Buckenmaier &amp; A. Rustichini &nbsp;·&nbsp; <em>Forthcoming, Management Science</em></div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">16</span>
+          <div class="pub-body">
+            <div class="pub-title">Economic Choices Uncover Objective Pain Differences</div>
+            <div class="pub-meta">M. Garagnani, P. Schweinhardt, P. N. Tobler &amp; C. Alós-Ferrer &nbsp;·&nbsp; <em>Social Science &amp; Medicine</em>, 2025</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">15</span>
+          <div class="pub-body">
+            <div class="pub-title">An Inexpensive Method to Measure Toxoplasmosis and its Socio-Economic Consequences</div>
+            <div class="pub-meta">M. Garagnani, A. Achtziger &amp; C. Alós-Ferrer &nbsp;·&nbsp; <em>Acta Psychologica</em>, 2025</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">14</span>
+          <div class="pub-body">
+            <div class="pub-title">Economic Consequences of Numerical Adaptation</div>
+            <div class="pub-meta">M. Garagnani &amp; F. Vieider &nbsp;·&nbsp; <em>Psychological Science</em>, 2025</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">13</span>
+          <div class="pub-body">
+            <div class="pub-title">Improving Risky Choices: The Effect of Cognitive Offloading</div>
+            <div class="pub-meta">M. Garagnani &amp; G. Yihong &nbsp;·&nbsp; <em>Journal of Risk and Uncertainty</em>, 2025</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">12</span>
+          <div class="pub-body">
+            <div class="pub-title">The Framing of Elections: Cooperation vs. Competition</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani &amp; J. Garcia-Segarra &nbsp;·&nbsp; <em>Social Choice and Welfare</em>, 2025</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">11</span>
+          <div class="pub-body">
+            <div class="pub-title">Predicting Risky Choices from Response Times</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Journal of Political Economy: Microeconomics</em>, 2024</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">10</span>
+          <div class="pub-body">
+            <div class="pub-title">The Predictive Power of Risk Elicitation Tasks <span class="pub-badge">Solo</span></div>
+            <div class="pub-meta"><span class="pub-solo">M. Garagnani</span> &nbsp;·&nbsp; <em>Journal of Risk and Uncertainty</em>, 2023</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">9</span>
+          <div class="pub-body">
+            <div class="pub-title">Part-Time Bayesians: Incentives and Behavioral Heterogeneity in Belief Updating</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Management Science</em>, 2023</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">8</span>
+          <div class="pub-body">
+            <div class="pub-title">The Gradual Nature of Economic Errors</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Journal of Economic Behavior &amp; Organization</em>, 2022</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">7</span>
+          <div class="pub-body">
+            <div class="pub-title">Voting under Time Pressure</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Judgment and Decision Making</em>, 2022</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">6</span>
+          <div class="pub-body">
+            <div class="pub-title">Strength of Preference and Decisions Under Risk</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Journal of Risk and Uncertainty</em>, 2022</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">5</span>
+          <div class="pub-body">
+            <div class="pub-title">The Reinforcement Paradox: Monetary Incentives and Bayesian Updating</div>
+            <div class="pub-meta">C. Alós-Ferrer, J. Buckenmaier, M. Garagnani &amp; A. Ritschel &nbsp;·&nbsp; <em>Economics Letters</em>, 2022</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">4</span>
+          <div class="pub-body">
+            <div class="pub-title">The Role of Payoff Valence on Voting: Egalitarian for Gains and Selfish for Losses</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani &amp; J. Garcia-Segarra &nbsp;·&nbsp; <em>Frontiers in Psychology</em>, 2021</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">3</span>
+          <div class="pub-body">
+            <div class="pub-title">Choice Consistency and Strength of Preference</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Economics Letters</em>, 2021</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">2</span>
+          <div class="pub-body">
+            <div class="pub-title">The Cognitive Foundations of Cooperation</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Journal of Economic Behavior &amp; Organization</em>, 2020</div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">1</span>
+          <div class="pub-body">
+            <div class="pub-title">Cognitive Reflection, Decision Biases, and Response Times</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani &amp; S. Hügelschäfer &nbsp;·&nbsp; <em>Frontiers in Psychology</em>, 2016</div>
+          </div>
+        </li>
+
+      </ol>
+
+      <!-- WORKING PAPERS -->
+      <p class="subsection-head">Working Papers &amp; Research in Progress</p>
+      <ol class="pub-list">
+
+        <li>
+          <span class="pub-num">R&R</span>
+          <div class="pub-body">
+            <div class="pub-title">Transitivity Violations: Only Noise?</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani &amp; E. Fehr &nbsp;·&nbsp; <em>Reject &amp; Resubmit, Econometrica</em></div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">R&R</span>
+          <div class="pub-body">
+            <div class="pub-title">Common Ratio and Common Consequence Effects Arise from True Preferences</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani, E. Fehr &amp; H. Fehr-Duda &nbsp;·&nbsp; <em>Reject &amp; Resubmit, American Economic Review</em></div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">sub.</span>
+          <div class="pub-body">
+            <div class="pub-title">Who Likes It More? Response Times and Utilitarian Welfare</div>
+            <div class="pub-meta">C. Alós-Ferrer &amp; M. Garagnani &nbsp;·&nbsp; <em>Submitted</em></div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">sub.</span>
+          <div class="pub-body">
+            <div class="pub-title">Noise and Biases in Economics</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani &amp; J. Buckenmaier &nbsp;·&nbsp; <em>Submitted</em></div>
+          </div>
+        </li>
+
+        <li>
+          <span class="pub-num">WP</span>
+          <div class="pub-body">
+            <div class="pub-title">Stochastic Choice and Preference Reversals</div>
+            <div class="pub-meta">C. Alós-Ferrer, M. Garagnani &amp; J. Buckenmaier</div>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- CV SNAPSHOT -->
+    <section id="cv">
+      <h2>Curriculum Vitae</h2>
+
+      <div class="cv-block">
+        <h3>Employment</h3>
+        <div class="cv-entry">
+          <span class="cv-year">2023–</span>
+          <span class="cv-detail">Senior Lecturer, <em>University of Melbourne</em></span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2022–2023</span>
+          <span class="cv-detail">Assistant Professor (RTD-A), <em>Bocconi University, Milan</em></span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2021–2022</span>
+          <span class="cv-detail">Post-Doctoral Researcher, <em>University of Zurich</em></span>
+        </div>
+      </div>
+
+      <div class="cv-block">
+        <h3>Education</h3>
+        <div class="cv-entry">
+          <span class="cv-year">2018–2021</span>
+          <span class="cv-detail">Ph.D. in Neuroeconomics, <em>University of Zurich</em> — Summa cum laude<br>Supervisors: Prof. Carlos Alós-Ferrer &amp; Prof. Ernst Fehr</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2011–2013</span>
+          <span class="cv-detail">M.Sc. Economics and Public Policies, <em>University of Modena and Reggio Emilia</em> — Summa cum laude</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2008–2011</span>
+          <span class="cv-detail">B.A. International Studies, <em>University of Bologna</em></span>
+        </div>
+      </div>
+
+      <div class="cv-block">
+        <h3>Selected Grants &amp; Awards</h3>
+        <div class="cv-entry">
+          <span class="cv-year">2024</span>
+          <span class="cv-detail">SNF Project Grant – "A Behavioural Economic Perspective on Measuring Pain" (CHF 755,000, collaborator)</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2024</span>
+          <span class="cv-detail">Faculty Research Grant – "The Economic Relevance of Oxygen" (AUD 15,000)</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2023</span>
+          <span class="cv-detail">NextGenerationEU Grant for Young Researchers (€150,000)</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2023</span>
+          <span class="cv-detail">Faculty Research Summit Fund – "Complexity of Decisions" (AUD 60,000)</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2022</span>
+          <span class="cv-detail">Marie Skłodowska-Curie Postdoctoral Fellowship – Seal of Excellence</span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2021</span>
+          <span class="cv-detail">Think Forward Initiative Essay Award</span>
+        </div>
+      </div>
+
+      <div class="cv-block">
+        <h3>Teaching</h3>
+        <div class="cv-entry">
+          <span class="cv-year">2025</span>
+          <span class="cv-detail">Behavioral Finance (Master), <em>University of Melbourne</em></span>
+        </div>
+        <div class="cv-entry">
+          <span class="cv-year">2024</span>
+          <span class="cv-detail">Empirical Studies in Finance (Graduate), <em>University of Melbourne</em></span>
+        </div>
+      </div>
+
+      <a class="btn" href="CV_MicheleGaragnani.pdf" target="_blank">Full CV (PDF)</a>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <strong>Email</strong>
+          <a href="mailto:michele.garagnani2@gmail.com">michele.garagnani2@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <strong>Address</strong>
+          Centre for Brain, Mind &amp; Markets<br>
+          University of Melbourne<br>
+          Melbourne, VIC, Australia
+        </div>
+        <div class="contact-item">
+          <strong>ORCID</strong>
+          <a href="https://orcid.org/0000-0002-2510-7109" target="_blank">0000-0002-2510-7109</a>
+        </div>
+        <div class="contact-item">
+          <strong>Scholar</strong>
+          <a href="https://scholar.google.com" target="_blank">Google Scholar Profile</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+  <footer>
+    © 2025 Michele Garagnani &nbsp;·&nbsp; University of Melbourne
+  </footer>
+
+</body>
+</html>
